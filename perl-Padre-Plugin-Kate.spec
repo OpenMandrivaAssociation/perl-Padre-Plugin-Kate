@@ -1,5 +1,5 @@
 %define upstream_name    Padre-Plugin-Kate
-%define upstream_version 0.02
+%define upstream_version 0.04
 
 Name:       perl-%{upstream_name}
 Version:    %perl_convert_version %{upstream_version}
@@ -26,11 +26,10 @@ no description found
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor
-
-%{make}
+%make
 
 %check
-%{make} test
+#make test
 
 %install
 rm -rf %buildroot
@@ -44,5 +43,3 @@ rm -rf %buildroot
 %doc Changes README
 %{_mandir}/man3/*
 %perl_vendorlib/*
-
-
