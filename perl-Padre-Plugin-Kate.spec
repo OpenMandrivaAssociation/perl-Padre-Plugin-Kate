@@ -1,5 +1,5 @@
 %define upstream_name    Padre-Plugin-Kate
-%define upstream_version 0.04
+%define upstream_version 0.06
 
 Name:       perl-%{upstream_name}
 Version:    %perl_convert_version %{upstream_version}
@@ -12,6 +12,7 @@ Url:        http://search.cpan.org/dist/%{upstream_name}
 Source0:    http://www.cpan.org/modules/by-module/Padre/%{upstream_name}-%{upstream_version}.tar.gz
 
 BuildRequires: perl(ExtUtils::MakeMaker)
+BuildRequires: perl(Module::Install)
 BuildRequires: perl(Padre)
 BuildRequires: perl(Syntax::Highlight::Engine::Kate)
 BuildRequires: perl(Test::More)
@@ -25,15 +26,15 @@ no description found
 %setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-%make
+%{__perl} Build.PL installdirs=vendor
+./Build
 
 %check
-#make test
+#./Build test
 
 %install
 rm -rf %buildroot
-%makeinstall_std
+./Build install destdir=%{buildroot}
 
 %clean
 rm -rf %buildroot
